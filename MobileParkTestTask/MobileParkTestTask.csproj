@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\DatabaseEntities\" />
+    <Folder Include="Entities\DatabaseEntiti\" />
     <Folder Include="Exceptions\" />
     <Folder Include="ExtentionsMethods\" />
     <Folder Include="Interfaces\" />
