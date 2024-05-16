@@ -1,12 +1,12 @@
 ﻿namespace MobileParkTestTask.Services.NewsService
 {
-    public static class SubstringHandler
+    public static class SubstringHandlerService
     {
-        public static string GetFirstMentionOfPrefix(string text, string index)
+        public static string GetFirstMentionOfPrefix(string text, string prefix)
         {
             try
             {
-                return text.Substring(text.IndexOf(index, 0));
+                return text.Substring(text.IndexOf(prefix, 0));
             }
             catch
             {
