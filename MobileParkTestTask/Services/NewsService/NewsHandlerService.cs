@@ -9,6 +9,8 @@ namespace MobileParkTestTask.Services.News
 {
     public class NewsHandlerService
     {
+        private readonly NewsInfoFile _newsInfoFile = new NewsInfoFile();
+
         public List<NewsInfoFile> HandleNewsListAsync(
             string prefix,
             SortBys sortBy,
@@ -28,7 +30,7 @@ namespace MobileParkTestTask.Services.News
 
             if (articlesResponse.Status == Statuses.Ok)
             {
-                int i = 0;
+                int i = _newsInfoFile.Id;
                 foreach (var article in articlesResponse.Articles)
                 {
                     if (article.Content != "[Removed]" && article.Description != "[Removed]")
@@ -92,10 +94,6 @@ namespace MobileParkTestTask.Services.News
             if (message.Articles == null)
             {
                 throw new TheNewsNotFoundException();
-            }
-            else if (message.Error.Message.Contains("You are trying to request results too far in the past."))
-            {
-                throw new ThePastDateException();
             }
         }
     }

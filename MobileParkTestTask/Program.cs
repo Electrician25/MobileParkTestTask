@@ -1,10 +1,11 @@
-using MobileParkTestTask.Services.News;
+using MobileParkTestTask.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRouting();
 builder.Services.AddControllers();
-builder.Services.AddTransient<NewsHandlerService, NewsHandlerService>();
+builder.AddApplicationContext();
+builder.Services.AddCategoryCrudServices();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
