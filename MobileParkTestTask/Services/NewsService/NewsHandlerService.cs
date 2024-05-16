@@ -21,9 +21,9 @@ namespace MobileParkTestTask.Services.News
             var articlesResponse = GetArticle(prefix, sortBy, language, year, month, day, apiKey);
             var filesList = new List<NewsInfoFile>();
 
-            if (articlesResponse.Error != null)
+            if (articlesResponse.Error != null || articlesResponse.Articles == null)
             {
-                ThrowIfNotValid(articlesResponse.Error.Message);
+                ThrowIfNotValid(articlesResponse);
             }
 
             if (articlesResponse.Status == Statuses.Ok)
@@ -87,9 +87,13 @@ namespace MobileParkTestTask.Services.News
             return vowelCounter;
         }
 
-        private void ThrowIfNotValid(string message)
+        private void ThrowIfNotValid(ArticlesResult message)
         {
-            if (message.Contains("You are trying to request results too far in the past."))
+            if (message.Articles == null)
+            {
+                throw new TheNewsNotFoundException();
+            }
+            else if (message.Error.Message.Contains("You are trying to request results too far in the past."))
             {
                 throw new ThePastDateException();
             }
