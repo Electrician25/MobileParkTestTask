@@ -6,6 +6,5 @@
         public string? Description { get; set; }
         public string? Content { get; set; }
         public int VowelLetter { get; set; }
-        public string? ErrorMessage { get; set; }
     }
 }
