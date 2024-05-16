@@ -20,7 +20,8 @@ namespace MobileParkTestTask.Controllers
             int day,
             string apiKey)
         {
-            var list = newsGetter.HandleNewsListAsync(prefix, sortBy, language, year, month, day, apiKey);
+            int id = applicationContext.FileNews.Count() + 1;
+            var list = newsGetter.HandleNewsListAsync(prefix, sortBy, language, year, month, day, apiKey, id);
 
             foreach (var element in list)
             {

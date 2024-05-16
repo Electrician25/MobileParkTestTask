@@ -21,7 +21,7 @@ namespace AppTests
             var apiKey = "3ee625bc20ed43439d9f97d2815e44b5";
 
             // Act.
-            var list = newsHandler.HandleNewsListAsync(prefix, sort, language, year, month, day, apiKey);
+            var list = newsHandler.HandleNewsListAsync(prefix, sort, language, year, month, day, apiKey, 0);
             var result = list.Count >= 1;
 
             // Assert.
@@ -43,7 +43,7 @@ namespace AppTests
             var apiKey = "3ee625bc20ed43439d9f97d2815e44b5";
 
             // Act, Assert.
-            Assert.ThrowsException<TheNewsNotFoundException>(() => newsHandler.HandleNewsListAsync(prefix, sort, language, year, month, day, apiKey));
+            Assert.ThrowsException<TheNewsNotFoundException>(() => newsHandler.HandleNewsListAsync(prefix, sort, language, year, month, day, apiKey, 0));
         }
 
         [TestMethod]
@@ -60,7 +60,7 @@ namespace AppTests
             var apiKey = "3ee625bc20ed43439d9f97d2815e44b5";
 
             // Act, Assert.
-            Assert.ThrowsException<TheNewsNotFoundException>(() => newsHandler.HandleNewsListAsync(prefix, sort, language, year, month, day, apiKey));
+            Assert.ThrowsException<TheNewsNotFoundException>(() => newsHandler.HandleNewsListAsync(prefix, sort, language, year, month, day, apiKey, 0));
         }
     }
 }
