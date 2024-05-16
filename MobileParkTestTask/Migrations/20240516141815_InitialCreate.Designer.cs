@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MobileParkTestTask.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240516132801_InitialCreate")]
+    [Migration("20240516141815_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

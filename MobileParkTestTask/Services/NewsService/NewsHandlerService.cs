@@ -9,8 +9,6 @@ namespace MobileParkTestTask.Services.News
 {
     public class NewsHandlerService
     {
-        private readonly NewsInfoFile _newsInfoFile = new NewsInfoFile();
-
         public List<NewsInfoFile> HandleNewsListAsync(
             string prefix,
             SortBys sortBy,
@@ -18,7 +16,8 @@ namespace MobileParkTestTask.Services.News
             int year,
             int month,
             int day,
-            string apiKey)
+            string apiKey,
+            int id)
         {
             var articlesResponse = GetArticle(prefix, sortBy, language, year, month, day, apiKey);
             var filesList = new List<NewsInfoFile>();
@@ -30,19 +29,18 @@ namespace MobileParkTestTask.Services.News
 
             if (articlesResponse.Status == Statuses.Ok)
             {
-                int i = _newsInfoFile.Id;
                 foreach (var article in articlesResponse.Articles)
                 {
                     if (article.Content != "[Removed]" && article.Description != "[Removed]")
                     {
                         filesList.Add(new NewsInfoFile
                         {
-                            Id = i,
+                            Id = id,
                             Content = article.Content,
                             Description = article.Description,
                             VowelLetter = GetVowels(SubstringHandlerService.GetFirstMentionOfPrefix(article.Content, prefix))
                         });
-                        i++;
+                        id++;
                     }
                 }
             }
