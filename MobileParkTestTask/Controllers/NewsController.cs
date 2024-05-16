@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MobileParkTestTask.Entities.FileNewsEntities;
 using MobileParkTestTask.Services.News;
 
 namespace MobileParkTestTask.Controllers
 {
     [ApiController]
-    [Route("/{controller}/")]
+    [Route("/api/{controller}/")]
     public class NewsController(NewsHandlerService newsGetter) : ControllerBase
     {
-        [HttpGet("Get")]
-        public void GetNewsForUserAsync()
+        [HttpGet("Get/{prefix}")]
+        public List<NewsInfoFile> GetNewsForUserAsync(string prefix)
         {
-            newsGetter.HandleNewsAsync();
+            return newsGetter.HandleNewsAsync(prefix);
         }
     }
 }

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MobileParkTestTask", "MobileParkTestTask\MobileParkTestTask.csproj", "{F1D3CAC9-0CE8-422E-85E8-78B1C3C5EE69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileParkTestTask", "MobileParkTestTask\MobileParkTestTask.csproj", "{F1D3CAC9-0CE8-422E-85E8-78B1C3C5EE69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6EB13925-5F0D-496A-8F05-593A4EF918CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +20,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F1D3CAC9-0CE8-422E-85E8-78B1C3C5EE69} = {6EB13925-5F0D-496A-8F05-593A4EF918CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D7B777E6-083E-4673-A61C-5C8D630A6266}

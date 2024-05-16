@@ -1,4 +1,5 @@
 ﻿using MobileParkTestTask.Entities.FileNewsEntities;
+using MobileParkTestTask.Services.NewsService;
 using NewsAPI;
 using NewsAPI.Constants;
 using NewsAPI.Models;
@@ -7,43 +8,50 @@ namespace MobileParkTestTask.Services.News
 {
     public class NewsHandlerService
     {
-        public List<NewsInfoFile> HandleNewsAsync()
+        public List<NewsInfoFile> HandleNewsAsync(string prefix)
         {
-            var articlesResponse = GetArticle();
+            var articlesResponse = GetArticle(prefix);
 
-            var result = new List<NewsInfoFile>();
+            var filesList = new List<NewsInfoFile>();
 
             if (articlesResponse.Status == Statuses.Ok)
             {
                 int i = 0;
                 foreach (var article in articlesResponse.Articles)
                 {
-                    i++;
                     if (article.Content != "[Removed]" && article.Description != "[Removed]")
                     {
-                        result.Add(new NewsInfoFile
+                        filesList.Add(new NewsInfoFile
                         {
                             Id = i,
                             Content = article.Content,
                             Description = article.Description,
-                            VowelLetter = GetVowelLetter(article.Description + "" + article.Content)
+                            VowelLetter = GetVowelLetter(SubstringHandler.GetFirstCharactersOfString(article.Content, prefix))
                         });
+                        i++;
                     }
                 }
             }
 
+            else if (articlesResponse.Error.Message.Equals("You are trying to request results too far in the past."))
+            {
+                //throw new ThePastDateException();
+            }
+
+            var result = filesList.OrderByDescending(x => x.VowelLetter).ToList();
+
             return result;
         }
 
-        private ArticlesResult GetArticle()
+        private ArticlesResult GetArticle(string prefix)
         {
             var newsApiClient = new NewsApiClient("a8c7ec95885a493ea159cec18a7a45a1");
             return newsApiClient.GetEverything(new EverythingRequest
             {
-                Q = "Goold Apple",
+                Q = prefix,
                 SortBy = SortBys.Popularity,
                 Language = Languages.EN,
-                From = new DateTime(2024, 4, 15)
+                From = new DateTime(2024, 4, 10)
             });
         }
 
