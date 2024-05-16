@@ -1,4 +1,5 @@
 ﻿using MobileParkTestTask.Entities.FileNewsEntities;
+using MobileParkTestTask.Exceptions;
 using MobileParkTestTask.Services.NewsService;
 using NewsAPI;
 using NewsAPI.Constants;
@@ -8,11 +9,15 @@ namespace MobileParkTestTask.Services.News
 {
     public class NewsHandlerService
     {
-        public List<NewsInfoFile> HandleNewsAsync(string prefix)
+        public List<NewsInfoFile> HandleNewsAsync(string prefix, SortBys sortBy)
         {
-            var articlesResponse = GetArticle(prefix);
-
+            var articlesResponse = GetArticle(prefix, sortBy);
             var filesList = new List<NewsInfoFile>();
+
+            if (articlesResponse.Error != null)
+            {
+                ThrowIfNotValid(articlesResponse.Error.Message);
+            }
 
             if (articlesResponse.Status == Statuses.Ok)
             {
@@ -26,32 +31,25 @@ namespace MobileParkTestTask.Services.News
                             Id = i,
                             Content = article.Content,
                             Description = article.Description,
-                            VowelLetter = GetVowelLetter(SubstringHandler.GetFirstCharactersOfString(article.Content, prefix))
+                            VowelLetter = GetVowelLetter(SubstringHandler.GetFirstMentionOfPrefix(article.Content, prefix))
                         });
                         i++;
                     }
                 }
             }
 
-            else if (articlesResponse.Error.Message.Equals("You are trying to request results too far in the past."))
-            {
-                //throw new ThePastDateException();
-            }
-
-            var result = filesList.OrderByDescending(x => x.VowelLetter).ToList();
-
-            return result;
+            return filesList.OrderByDescending(x => x.VowelLetter).ToList();
         }
 
-        private ArticlesResult GetArticle(string prefix)
+        private ArticlesResult GetArticle(string prefix, SortBys sortBy)
         {
             var newsApiClient = new NewsApiClient("a8c7ec95885a493ea159cec18a7a45a1");
             return newsApiClient.GetEverything(new EverythingRequest
             {
                 Q = prefix,
-                SortBy = SortBys.Popularity,
+                SortBy = sortBy,
                 Language = Languages.EN,
-                From = new DateTime(2024, 4, 10)
+                From = new DateTime(2024, 4, 15)
             });
         }
 
@@ -73,6 +71,14 @@ namespace MobileParkTestTask.Services.News
             }
 
             return vowelCounter;
+        }
+
+        private void ThrowIfNotValid(string message)
+        {
+            if (message.Contains("You are trying to request results too far in the past."))
+            {
+                throw new ThePastDateException();
+            }
         }
     }
 }

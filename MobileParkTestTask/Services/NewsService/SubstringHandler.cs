@@ -2,7 +2,7 @@
 {
     public static class SubstringHandler
     {
-        public static string GetFirstCharactersOfString(string text, string index)
+        public static string GetFirstMentionOfPrefix(string text, string index)
         {
             try
             {
