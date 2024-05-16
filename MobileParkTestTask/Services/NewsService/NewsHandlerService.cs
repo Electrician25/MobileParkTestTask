@@ -9,9 +9,16 @@ namespace MobileParkTestTask.Services.News
 {
     public class NewsHandlerService
     {
-        public List<NewsInfoFile> HandleNewsAsync(string prefix, SortBys sortBy)
+        public List<NewsInfoFile> HandleNewsListAsync(
+            string prefix,
+            SortBys sortBy,
+            Languages language,
+            int year,
+            int month,
+            int day,
+            string apiKey)
         {
-            var articlesResponse = GetArticle(prefix, sortBy);
+            var articlesResponse = GetArticle(prefix, sortBy, language, year, month, day, apiKey);
             var filesList = new List<NewsInfoFile>();
 
             if (articlesResponse.Error != null)
@@ -31,7 +38,7 @@ namespace MobileParkTestTask.Services.News
                             Id = i,
                             Content = article.Content,
                             Description = article.Description,
-                            VowelLetter = GetVowelLetter(SubstringHandler.GetFirstMentionOfPrefix(article.Content, prefix))
+                            VowelLetter = GetVowels(SubstringHandlerService.GetFirstMentionOfPrefix(article.Content, prefix))
                         });
                         i++;
                     }
@@ -41,19 +48,26 @@ namespace MobileParkTestTask.Services.News
             return filesList.OrderByDescending(x => x.VowelLetter).ToList();
         }
 
-        private ArticlesResult GetArticle(string prefix, SortBys sortBy)
+        private ArticlesResult GetArticle
+            (string prefix,
+            SortBys sortBy,
+            Languages language,
+            int year,
+            int month,
+            int day,
+            string apiKey)
         {
-            var newsApiClient = new NewsApiClient("a8c7ec95885a493ea159cec18a7a45a1");
+            var newsApiClient = new NewsApiClient(apiKey);
             return newsApiClient.GetEverything(new EverythingRequest
             {
                 Q = prefix,
                 SortBy = sortBy,
-                Language = Languages.EN,
-                From = new DateTime(2024, 4, 15)
+                Language = language,
+                From = new DateTime(year, month, day)
             });
         }
 
-        private int GetVowelLetter(string text)
+        private int GetVowels(string text)
         {
             var vowelCounter = 0;
             var vowels = new List<char>()

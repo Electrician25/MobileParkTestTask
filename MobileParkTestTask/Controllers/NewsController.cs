@@ -9,10 +9,17 @@ namespace MobileParkTestTask.Controllers
     [Route("/api/{controller}/")]
     public class NewsController(NewsHandlerService newsGetter) : ControllerBase
     {
-        [HttpGet("Get/{prefix}/{sortBy}")]
-        public List<NewsInfoFile> GetNewsForUserAsync(string prefix, SortBys sortBy)
+        [HttpGet("Get/{prefix}/{sortBy}/{language}/{year}/{month}/{day}/{apiKey}")]
+        public List<NewsInfoFile> GetNewsForUserAsync(
+            string prefix,
+            SortBys sortBy,
+            Languages language,
+            int year,
+            int month,
+            int day,
+            string apiKey)
         {
-            return newsGetter.HandleNewsAsync(prefix, sortBy);
+            return newsGetter.HandleNewsListAsync(prefix, sortBy, language, year, month, day, apiKey);
         }
     }
 }
