@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileParkTestTask", "Mobil
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6EB13925-5F0D-496A-8F05-593A4EF918CB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{750EEF98-D019-4E24-8A4E-94879C6D91FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppTests", "AppTests\AppTests.csproj", "{1D455AD6-3172-4AE7-BB6D-F8D0EA6CBEF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +21,17 @@ Global
 		{F1D3CAC9-0CE8-422E-85E8-78B1C3C5EE69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1D3CAC9-0CE8-422E-85E8-78B1C3C5EE69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1D3CAC9-0CE8-422E-85E8-78B1C3C5EE69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D455AD6-3172-4AE7-BB6D-F8D0EA6CBEF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D455AD6-3172-4AE7-BB6D-F8D0EA6CBEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D455AD6-3172-4AE7-BB6D-F8D0EA6CBEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D455AD6-3172-4AE7-BB6D-F8D0EA6CBEF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F1D3CAC9-0CE8-422E-85E8-78B1C3C5EE69} = {6EB13925-5F0D-496A-8F05-593A4EF918CB}
+		{1D455AD6-3172-4AE7-BB6D-F8D0EA6CBEF2} = {750EEF98-D019-4E24-8A4E-94879C6D91FA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D7B777E6-083E-4673-A61C-5C8D630A6266}
